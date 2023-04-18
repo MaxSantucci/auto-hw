@@ -1,23 +1,50 @@
 .item {
 }
 
-.item:last-of-type {
+.item:not(:last-of-type) {
+   border-bottom: 1pt solid #E5E5E5;
 }
 
 .users {
+   font-family: 'Roboto', sans-serif;
+   width: 100%;
+   border-collapse: collapse;
+   margin-bottom: 20px;
 }
 
 .buttonsContainer {
+   margin-left: 200px;
+   margin-bottom: 18px;
+   display: flex;
+   justify-content: flex-end;
 }
 
 .container {
+   max-width: 606px;
 }
 
 .thead {
+   background: #E5E5E5;
+}
+
+.thead .nameCol,
+.thead .ageCol {
+   font-weight: 600;
+   padding: 10px 17px;
+}
+
+.nameCol,
+.ageCol {
+   padding: 10px 17px;
+   font-size: 14px;
+   line-height: 16px;
+   width: 50%;
 }
 
 .nameCol {
+   font-weight: 300;
 }
 
 .ageCol {
+   font-weight: 500;
 }
