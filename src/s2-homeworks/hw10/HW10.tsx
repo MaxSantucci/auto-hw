@@ -15,7 +15,6 @@ import {loadingAC} from './bll/loadingReducer';
 
 const HW10 = () => {
    // useSelector, useDispatch // пишет студент
-
    const selector = useSelector(store.getState)
    const isLoading = selector.loading.isLoading
    const dispatch = useDispatch()

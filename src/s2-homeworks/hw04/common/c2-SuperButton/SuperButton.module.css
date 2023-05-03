@@ -26,7 +26,7 @@
 }
 
 .default {
-   width: 132px;
+   width: 142px;
    height: 30px;
    background: #0066CC;
    color: #FFFFFF;
@@ -46,7 +46,7 @@
 }
 
 .default:hover {
-   width: 167px;
+   width: 142px;
    background: #0080FF;
 }
 
