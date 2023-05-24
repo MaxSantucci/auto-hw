@@ -6,7 +6,7 @@ import axios from 'axios'
 import success200 from './images/200.svg'
 import error400 from './images/400.svg'
 import error500 from './images/500.svg'
-import errorUnknown from './images/error.svg'
+import error from './images/error.svg'
 
 /*
 * 1 - дописать функцию send
@@ -21,28 +21,45 @@ const HW13 = () => {
     const [image, setImage] = useState('')
 
     const send = (x?: boolean | null) => () => {
-        const url =
-            x === null
-                ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
-                : 'https://incubator-personal-page-back.herokuapp.com/api/3.0/homework/test'
+       const url =
+          x === null
+             ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
+             : 'https://samurai.it-incubator.io/api/3.0/homework/test'
 
-        setCode('')
-        setImage('')
-        setText('')
-        setInfo('...loading')
+       setCode('')
+       setImage('')
+       setText('')
+       setInfo('...loading')
 
-        axios
-            .post(url, {success: x})
-            .then((res) => {
-                setCode('Код 200!')
-                setImage(success200)
-                // дописать
 
-            })
-            .catch((e) => {
-                // дописать
-
-            })
+       axios
+          .post(url, {success: x})
+          .then((res) => {
+             setImage(success200)
+             setCode('Code 200!')
+             setText(res.data.errorText)
+             setInfo(res.data.info)
+             // дописать
+          })
+          .catch((e) => {
+             // дописать
+             if(e.response.status === 400) {
+                setImage(error400)
+                setCode('Mistake 400!')
+                setText(e.response.data.errorText)
+                setInfo(e.response.data.info)
+             } else if(e.response.status === 500) {
+                setImage(error500)
+                setCode('Mistake 500!')
+                setText(e.response.data.errorText)
+                setInfo(e.response.data.info)
+             } else {
+                setImage(error)
+                setCode('Error')
+                setText(e.message)
+                setInfo(e.name)
+             }
+          })
     }
 
     return (
@@ -56,7 +73,7 @@ const HW13 = () => {
                         onClick={send(true)}
                         xType={'secondary'}
                         // дописать
-
+                        disabled={info === '...loading'}
                     >
                         Send true
                     </SuperButton>
@@ -65,7 +82,7 @@ const HW13 = () => {
                         onClick={send(false)}
                         xType={'secondary'}
                         // дописать
-
+                        disabled={info === '...loading'}
                     >
                         Send false
                     </SuperButton>
@@ -74,7 +91,7 @@ const HW13 = () => {
                         onClick={send(undefined)}
                         xType={'secondary'}
                         // дописать
-
+                        disabled={info === '...loading'}
                     >
                         Send undefined
                     </SuperButton>
@@ -83,7 +100,7 @@ const HW13 = () => {
                         onClick={send(null)} // имитация запроса на не корректный адрес
                         xType={'secondary'}
                         // дописать
-
+                        disabled={info === '...loading'}
                     >
                         Send null
                     </SuperButton>
