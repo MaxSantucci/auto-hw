@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 import SuperSelect from '../../../hw07/common/c5-SuperSelect/SuperSelect'
 import {Pagination} from '@mui/material'
 import s from './SuperPagination.module.css'
@@ -16,43 +16,63 @@ const SuperPagination: React.FC<SuperPaginationPropsType> = (
         page, itemsCountForPage, totalCount, onChange, id = 'hw15',
     }
 ) => {
-    const lastPage = 10 // пишет студент // вычислить количество страниц
+   const lastPage = Math.round(totalCount / itemsCountForPage)
+   const [pageSize, setPageSize] = useState<number>(itemsCountForPage)
 
-    const onChangeCallback = (event: any, page: number) => {
-        // пишет студент
-    }
+   useEffect(() => {
+      onChange(page, pageSize)
+   }, [pageSize])
 
-    const onChangeSelect = (event: any) => {
-        // пишет студент
-    }
+   const onChangeCallback = (event: ChangeEvent<unknown>, page: number) => {
+      onChange(page, pageSize)
+   }
 
-    return (
-        <div className={s.pagination}>
-            <Pagination
-                id={id + '-pagination'}
-                sx={{
-                    // стили для Pagination // пишет студент
-                }}
-                page={page}
-                count={lastPage}
-                onChange={onChangeCallback}
-                hideNextButton
-                hidePrevButton
-            />
+   const onChangeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+      setPageSize(+event.currentTarget.value)
+   }
 
-            <span className={s.text1}>
+   return (
+      <div className={s.pagination}>
+         <Pagination
+            id={id + '-pagination'}
+            sx={{
+               '& button': {
+                  marginRight: '10px',
+                  borderRadius: '5px',
+                  fontSize: '14px',
+                  fontWeight: '400',
+                  lineHeight: '16px',
+                  '& hover': {
+                     color: 'white',
+                     borderRadius: '2px',
+                     background: '#0066CC',
+                  },
+               },
+               '& .MuiPaginationItem-root.Mui-selected': {
+                  color: 'white',
+                  background: '#0066CC',
+               }
+            }}
+            page={page}
+            count={lastPage}
+            onChange={onChangeCallback}
+            hideNextButton
+            hidePrevButton
+         />
+
+         <span className={s.text1}>
                 показать
             </span>
 
             <SuperSelect
-                id={id + '-pagination-select'}
-                value={itemsCountForPage}
-                options={[
-                    {id: 4, value: 4},
-                    {id: 7, value: 7},
-                    {id: 10, value: 10},
-                ]}
-                onChange={onChangeSelect}
+               id={id + '-pagination-select'}
+               value={pageSize}
+               options={[
+                  {id: 4, value: 4},
+                  {id: 7, value: 7},
+                  {id: 10, value: 10},
+               ]}
+               onChange={onChangeSelect}
             />
 
             <span className={s.text2}>

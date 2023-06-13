@@ -1,6 +1,6 @@
 .select {
-   margin-right: 110px;
-   min-width: 180px;
+   /*margin-right: 110px;*/
+   width: 180px;
    border-color: #C2C2C2;
    padding: 5px 10px;
 }
